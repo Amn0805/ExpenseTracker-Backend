@@ -233,7 +233,7 @@ prevent them from ever being overwritten.
 
 ## Deployment
 
-Deployed as a Node web service. Build/start configuration:
+Deployed as a Node web service.
 
 | Setting | Value |
 |---|---|
@@ -242,14 +242,16 @@ Deployed as a Node web service. Build/start configuration:
 | Environment variable | `PORT` (platform-provided at runtime) |
 | Instance type | Free |
 
-**Live URL:** `[add once deployment is finalized]`
+### Live Demo
+
+**Backend API**
+https://expensetracker-backend-7io2.onrender.com
+
+**Health Check**
+https://expensetracker-backend-7io2.onrender.com/api/health
 
 > Free-tier instances typically sleep after a period of inactivity — the
 > first request afterward may take 10–30 seconds while the server wakes up.
-
-CORS is configured in `server.js` via an `allowedOrigins` array covering
-common local Vite ports (`5173`, `5174`). If the frontend is ever deployed,
-its production URL needs to be added there.
 
 ---
 
