@@ -1,19 +1,19 @@
 // Load environment variables from .env FIRST, before anything else needs them
-require('dotenv').config();
+require('dotenv').config();   
 
-const express = require('express');
-const cors = require('cors');
+const express = require('express');     //import express framework
+const cors = require('cors'); // imports cors middleware it allow the frontend and backend running on different origins
 
-const expenseRoutes = require('./routes/expenseRoutes');
+const expenseRoutes = require('./routes/expenseRoutes');    //import expense related routes
 const logger = require('./middleware/logger');
 const errorHandler = require('./middleware/errorHandler');
 
-const app = express();
+const app = express();  //create express application
 
 // Development mein Vite kabhi kabhi different port use kar leta hai
 // (5173 busy ho to khud 5174, 5175... pe shift ho jata hai)
 // Isliye hum common ports ki list allow kar rahe hain, ek fixed port ki jagah
-const allowedOrigins = [
+const allowedOrigins = [   
   'http://localhost:5173',
   'http://127.0.0.1:5173',
   'http://localhost:5174',
