@@ -24,6 +24,7 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
+  //instead of allowing every website, we wrote a custom function that chs whther the request's origin is alloesd
   origin: function (origin, callback) {
     // Postman/curl se request aaye to origin undefined hota hai — unhe allow karo
     if (!origin || allowedOrigins.includes(origin)) {
@@ -53,6 +54,6 @@ app.use('/api/expenses', expenseRoutes);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 3000; // use .env value, or fallback to 3000
-app.listen(PORT, () => {
+app.listen(PORT, () => { //start server  
   console.log(`Server running on port ${PORT}`);
 });

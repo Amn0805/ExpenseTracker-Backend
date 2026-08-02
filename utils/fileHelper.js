@@ -8,7 +8,7 @@ const DATA_FILE = path.join(__dirname, '..', 'data', 'expenses.json');
 // This function READS all expenses from the JSON file
 function readExpenses() {
   try {
-    // If the file doesn't exist yet (e.g. no expense added ever), return empty array
+    // If the file doesn't(json file) exist yet (e.g. no expense added ever), return empty array
     if (!fs.existsSync(DATA_FILE)) return [];
 
     // Read the file as text

@@ -11,6 +11,7 @@ const getAllExpenses = (req, res) => {
 
   // Apply each filter ONLY if it was actually provided in the URL
   if (category) {
+    //marching categories
     expenses = expenses.filter(exp => exp.category === category);
   }
   if (search) {
@@ -25,9 +26,10 @@ const getAllExpenses = (req, res) => {
   if (maxAmount) {
     expenses = expenses.filter(exp => exp.amount <= Number(maxAmount));
   }
-
+ //snd filtered data to frontend
   res.json({ success: true, count: expenses.length, data: expenses });
 };
+
 
 // GET /api/expenses/stats — returns a summary of spending
 const getExpenseStats = (req, res) => {
@@ -37,7 +39,7 @@ const getExpenseStats = (req, res) => {
   // reduce() adds up all the amounts into one total number
   const totalAmount = expenses.reduce((sum, exp) => sum + exp.amount, 0);
 
-  // Build a breakdown per category, e.g. { food: { count: 2, total: 4500 } }
+  // Build a breakdown /summary per category, e.g. { food: { count: 2, total: 4500 } }
   const byCategory = {};
   expenses.forEach(exp => {
     if (!byCategory[exp.category]) {
