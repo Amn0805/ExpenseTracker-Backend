@@ -4,7 +4,8 @@ require('dotenv').config();
 const express = require('express');     //import express framework
 const cors = require('cors'); // imports cors middleware it allow the frontend and backend running on different origins
 
-const expenseRoutes = require('./routes/expenseRoutes');    //import expense related routes
+const connectDB = require('./config/db');
+const expenseRoutes = require('./routes/expenseRoutes');
 const logger = require('./middleware/logger');
 const errorHandler = require('./middleware/errorHandler');
 
@@ -13,13 +14,12 @@ const app = express();  //create express application
 // Development mein Vite kabhi kabhi different port use kar leta hai
 // (5173 busy ho to khud 5174, 5175... pe shift ho jata hai)
 // Isliye hum common ports ki list allow kar rahe hain, ek fixed port ki jagah
-const allowedOrigins = [   
+const allowedOrigins = [
   'http://localhost:5173',
   'http://127.0.0.1:5173',
   'http://localhost:5174',
   'http://127.0.0.1:5174',
-
-  // Vercel frontend
+  //vercel frontend
   'https://expense-tracker-frontend-nu-six.vercel.app',
 ];
 
@@ -53,7 +53,12 @@ app.use('/api/expenses', expenseRoutes);
 // so it can catch any errors thrown anywhere above it
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 3000; // use .env value, or fallback to 3000
-app.listen(PORT, () => { //start server  
-  console.log(`Server running on port ${PORT}`);
+const PORT = process.env.PORT || 3000; // use .env value, // Connect to MongoDB FIRST, and only start listening for requests once
+// the connection succeeds — this avoids handling requests before the
+// database is actually ready.
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
 });
+
